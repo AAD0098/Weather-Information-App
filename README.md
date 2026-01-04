@@ -215,6 +215,7 @@ This project is created for educational purposes. Feel free to use and modify as
 
 AAD0098
 
-## Version
+## Acknowledgments
 
-1.0.0 - Initial Release
+- Weather data provided by [Open-Meteo API](https://open-meteo.com/)
+- Icons use Unicode emoji symbols for cross-platform compatibility
