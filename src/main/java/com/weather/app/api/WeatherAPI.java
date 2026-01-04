@@ -206,13 +206,22 @@ public class WeatherAPI {
             String[] temps = tempArray.split(",");
             String[] codes = codeArray.split(",");
             
+            // Validate all arrays have data and matching lengths
+            int minLength = Math.min(Math.min(times.length, temps.length), codes.length);
+            if (minLength == 0) {
+                return forecast;
+            }
+            
             // Get next 5 hours
-            int count = Math.min(5, times.length);
+            int count = Math.min(5, minLength);
             for (int i = 0; i < count; i++) {
                 String time = times[i].replaceAll("\"", "").trim();
-                // Extract just the hour part
+                // Extract just the hour part with bounds checking
                 if (time.length() >= 13) {
                     time = time.substring(11, 13) + ":00";
+                } else {
+                    // Use the raw time if format is unexpected
+                    time = time.isEmpty() ? "??:??" : time;
                 }
                 double temp = Double.parseDouble(temps[i].trim());
                 int code = (int) Double.parseDouble(codes[i].trim());
@@ -220,7 +229,8 @@ public class WeatherAPI {
                 forecast.add(new ForecastEntry(time, temp, code));
             }
         } catch (Exception e) {
-            // Return empty forecast on error
+            // Silently return empty forecast on parsing error
+            // This allows the app to continue functioning even if forecast data is malformed
         }
         
         return forecast;

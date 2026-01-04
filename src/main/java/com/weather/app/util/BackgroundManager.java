@@ -35,11 +35,11 @@ public class BackgroundManager {
      * @return Color for the given time of day
      */
     public static Color getBackgroundColorForTime(LocalTime time) {
-        if (time.isAfter(NIGHT_START) || time.isBefore(MORNING_START)) {
+        if (!time.isBefore(NIGHT_START) || time.isBefore(MORNING_START)) {
             return NIGHT_COLOR;
-        } else if (time.isAfter(EVENING_START)) {
+        } else if (!time.isBefore(EVENING_START)) {
             return EVENING_COLOR;
-        } else if (time.isAfter(AFTERNOON_START)) {
+        } else if (!time.isBefore(AFTERNOON_START)) {
             return AFTERNOON_COLOR;
         } else {
             return MORNING_COLOR;
@@ -61,11 +61,11 @@ public class BackgroundManager {
      * @return String describing the time period
      */
     public static String getTimePeriodForTime(LocalTime time) {
-        if (time.isAfter(NIGHT_START) || time.isBefore(MORNING_START)) {
+        if (!time.isBefore(NIGHT_START) || time.isBefore(MORNING_START)) {
             return "Night";
-        } else if (time.isAfter(EVENING_START)) {
+        } else if (!time.isBefore(EVENING_START)) {
             return "Evening";
-        } else if (time.isAfter(AFTERNOON_START)) {
+        } else if (!time.isBefore(AFTERNOON_START)) {
             return "Afternoon";
         } else {
             return "Morning";
