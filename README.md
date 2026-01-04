@@ -1,127 +1,215 @@
 # Weather Information App
 
-A Java-based desktop application that provides real-time weather information using the free Open-Meteo API. The app features a simple and intuitive Swing GUI with weather icons, forecasts, unit conversion, search history, and dynamic backgrounds.
+A Java Swing desktop application that provides real-time weather information using the Open Meteo API. The app features a user-friendly interface with weather icons, unit conversion, search history, and dynamic time-based backgrounds.
 
 ## Features
 
-### ✨ Core Features
-- **Real-time Weather Data**: Fetches current weather information from the Open-Meteo API
-- **City Search**: Enter any city name to get weather information
-- **Weather Display**: Shows temperature, humidity, wind speed, and weather conditions
-- **Weather Icons**: Unicode-based weather icons for different conditions (☀, 🌧, ❄, ⛈, etc.)
-- **5-Day Forecast**: Short-term forecast with daily high/low temperatures and conditions
+### Core Features
+- **Real-time Weather Data**: Fetches current weather information for any city worldwide
+- **Weather Details**: Displays temperature, humidity, wind speed, and weather conditions
+- **5-Hour Forecast**: Shows upcoming hourly weather predictions
+- **Weather Icons**: Visual representation of weather conditions (clear, cloudy, rain, storm)
 
-### 🎨 User Experience
-- **Unit Conversion**: Toggle between Celsius/Fahrenheit and km/h/mph
-- **Search History**: Keeps track of recently searched cities for quick access
-- **Dynamic Backgrounds**: Time-based background colors that change throughout the day
-  - Dawn (5-7): Orange/Yellow
-  - Morning (7-12): Light Sky Blue
-  - Afternoon (12-17): Steel Blue
-  - Evening (17-19): Dark Orange
-  - Night (19-5): Midnight Blue
+### Advanced Features
+- **Unit Conversion**: Switch between Celsius/Fahrenheit and m/s/km/h for temperature and wind speed
+- **Search History**: Automatically tracks your last 10 searches with timestamps
+- **Dynamic Backgrounds**: Changes background color based on time of day (morning, afternoon, evening, night)
+- **Error Handling**: Comprehensive error messages for invalid cities, network errors, and data parsing issues
+- **Clickable History**: Click on any previous search to quickly re-search that city
 
-## Prerequisites
+## Requirements
 
-- Java 11 or higher
-- Maven 3.6 or higher
-- Internet connection (for API calls)
-
-## Building the Application
-
-1. Clone the repository:
-```bash
-git clone https://github.com/AAD0098/Weather-Information-App.git
-cd Weather-Information-App
-```
-
-2. Build with Maven:
-```bash
-mvn clean package
-```
-
-This will create an executable JAR file in the `target` directory.
-
-## Running the Application
-
-Execute the JAR file:
-```bash
-java -jar target/weather-information-app-1.0.0.jar
-```
-
-Or run directly with Maven:
-```bash
-mvn exec:java -Dexec.mainClass="com.weather.app.WeatherApp"
-```
-
-## Usage
-
-1. **Search for a City**: Enter a city name in the search field and click "Search" or press Enter
-2. **View Weather**: The current weather will display with an icon, temperature, humidity, and wind speed
-3. **Check Forecast**: View the 5-day forecast at the bottom of the window
-4. **Toggle Units**: Click the °C/°F button to switch between temperature units
-5. **Use History**: Click the dropdown menu to quickly access recently searched cities
+- Java Development Kit (JDK) 8 or higher
+- Internet connection (to fetch weather data from Open Meteo API)
 
 ## Project Structure
 
 ```
 Weather-Information-App/
-├── src/main/java/com/weather/app/
-│   ├── WeatherApp.java          # Main GUI application
-│   ├── WeatherAPI.java           # API integration with Open-Meteo
-│   ├── WeatherData.java          # Weather data model
-│   ├── ForecastData.java         # Forecast data model
-│   ├── WeatherIcon.java          # Weather icon utilities
-│   ├── UnitConverter.java        # Temperature and speed conversion
-│   ├── SearchHistory.java        # Search history management
-│   └── TimeBasedBackground.java  # Dynamic background logic
-├── pom.xml                       # Maven configuration
-└── README.md                     # This file
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/
+│       │       └── weather/
+│       │           └── app/
+│       │               ├── Main.java                    # Application entry point
+│       │               ├── api/
+│       │               │   └── WeatherAPI.java          # Open Meteo API integration
+│       │               ├── model/
+│       │               │   └── WeatherData.java         # Weather data model
+│       │               ├── ui/
+│       │               │   └── WeatherGUI.java          # Main GUI interface
+│       │               └── util/
+│       │                   ├── BackgroundManager.java   # Dynamic backgrounds
+│       │                   ├── SearchHistory.java       # Search history management
+│       │                   └── UnitConverter.java       # Unit conversion utilities
+│       └── resources/
+│           └── icons/                                   # Weather icon images
+│               ├── clear.png
+│               ├── cloudy.png
+│               ├── rain.png
+│               └── storm.png
+└── README.md
 ```
 
-## Technologies Used
+## How to Build and Run
 
-- **Java 11**: Core programming language
-- **Java Swing**: GUI framework
-- **Open-Meteo API**: Free weather API (no API key required)
-- **JSON Library**: For parsing API responses (org.json)
-- **Maven**: Build and dependency management
+### Using Command Line
+
+1. **Clone the repository** (if not already done):
+   ```bash
+   git clone https://github.com/AAD0098/Weather-Information-App.git
+   cd Weather-Information-App
+   ```
+
+2. **Compile the Java files**:
+   ```bash
+   javac -d bin -sourcepath src/main/java src/main/java/com/weather/app/Main.java
+   ```
+
+3. **Run the application**:
+   ```bash
+   java -cp bin com.weather.app.Main
+   ```
+
+### Using an IDE (Eclipse, IntelliJ IDEA, NetBeans)
+
+1. **Import the project**:
+   - Open your IDE
+   - Select "Import" or "Open Project"
+   - Navigate to the project directory and select it
+
+2. **Configure the project**:
+   - Ensure JDK 8+ is configured as the project SDK
+   - Mark `src/main/java` as the source root
+   - Mark `src/main/resources` as the resources root
+
+3. **Run the application**:
+   - Locate `Main.java` in the project explorer
+   - Right-click and select "Run" or "Run As Java Application"
+
+## How to Use
+
+1. **Start the Application**: Launch the app using one of the methods above
+
+2. **Search for Weather**:
+   - Enter a city name in the text field (e.g., "London", "New York", "Tokyo")
+   - Click "Fetch Weather" button or press Enter
+   - Wait for the weather data to load
+
+3. **View Weather Information**:
+   - Current temperature, humidity, and wind speed
+   - Weather condition description
+   - Weather icon representing current conditions
+   - 5-hour forecast in the forecast area
+
+4. **Change Units**:
+   - Use the "Units" dropdown to switch between:
+     - Celsius / m/s (metric)
+     - Fahrenheit / km/h (imperial)
+   - The display updates automatically
+
+5. **View Search History**:
+   - All successful searches appear in the right panel
+   - Shows city name and timestamp
+   - Click any history entry to search that city again
+
+6. **Dynamic Background**:
+   - The background color changes automatically based on time:
+     - Morning (6:00-12:00): Light orange
+     - Afternoon (12:00-18:00): Light sky blue
+     - Evening (18:00-21:00): Light pink
+     - Night (21:00-6:00): Midnight blue
 
 ## API Information
 
-This application uses the [Open-Meteo API](https://open-meteo.com/), which is:
-- Free and open-source
-- No API key required
-- No authentication needed
-- Provides accurate weather forecasts
+This app uses the [Open Meteo API](https://open-meteo.com/), which provides:
+- Free weather data with no API key required
+- Global coverage for cities worldwide
+- Current weather conditions and forecasts
+- Weather codes for condition classification
 
-## Features in Detail
+## Error Handling
 
-### Weather Conditions Supported
-- Clear Sky (☀)
-- Partly Cloudy (⛅)
-- Fog (🌫)
-- Rain (🌧)
-- Snow (❄)
-- Thunderstorm (⛈)
-- And more...
+The app handles various error scenarios:
+- **Empty City Input**: Warns when no city name is entered
+- **Invalid City**: Alerts when the city cannot be found
+- **Network Errors**: Notifies when internet connection fails
+- **Parsing Errors**: Handles malformed API responses gracefully
 
-### Unit Conversion
-- Temperature: Celsius ↔ Fahrenheit
-- Wind Speed: km/h ↔ mph
+## Weather Code Mapping
 
-### Search History
-- Stores up to 10 recent searches
-- Quick access via dropdown menu
-- Persistent during application session
+Weather conditions are determined by Open Meteo weather codes:
+- **0**: Clear sky
+- **1-3**: Partly cloudy
+- **45-48**: Foggy
+- **51-67**: Rainy
+- **71-77**: Snowy
+- **80-82**: Rain showers
+- **85-86**: Snow showers
+- **95-99**: Thunderstorm
+
+## Customization
+
+### Adding Custom Icons
+Replace the placeholder icons in `src/main/resources/icons/` with your own 100x100 PNG images:
+- `clear.png` - Clear sky conditions
+- `cloudy.png` - Cloudy or partly cloudy
+- `rain.png` - Rain, drizzle, or snow
+- `storm.png` - Thunderstorms
+
+### Modifying Background Colors
+Edit `BackgroundManager.java` to customize the time periods and colors:
+```java
+private static final Color MORNING_COLOR = new Color(255, 223, 186);
+private static final Color AFTERNOON_COLOR = new Color(135, 206, 250);
+// etc.
+```
+
+### Changing History Size
+Modify the `MAX_HISTORY_SIZE` constant in `SearchHistory.java`:
+```java
+private static final int MAX_HISTORY_SIZE = 10;  // Change this value
+```
+
+## Troubleshooting
+
+**Problem**: "City not found" error
+- **Solution**: Check the spelling of the city name. Try using the full city name or include the country (e.g., "Paris, France")
+
+**Problem**: Network error messages
+- **Solution**: Verify your internet connection is active and stable
+
+**Problem**: Icons not displaying
+- **Solution**: Ensure the icons folder exists at `src/main/resources/icons/` with all required PNG files
+
+**Problem**: App window too small/large
+- **Solution**: Modify the window size in `WeatherGUI.java`:
+  ```java
+  setSize(800, 600);  // Change width and height as needed
+  ```
+
+## Future Enhancements
+
+Potential features for future versions:
+- Multi-day forecast (3-day, 7-day)
+- Weather alerts and warnings
+- Multiple location comparison
+- Save favorite locations
+- Temperature graphs and charts
+- Export weather data to CSV
+- Dark mode toggle
+- Multiple language support
+
+## Credits
+
+- **Weather Data**: [Open Meteo API](https://open-meteo.com/)
+- **Geocoding**: Open Meteo Geocoding API
+- **Icons**: Placeholder icons included (replace with custom icons)
 
 ## License
 
-This project is open source and available under the MIT License.
-
-## Contributing
-
-Contributions are welcome! Feel free to submit issues or pull requests.
+This project is created for educational purposes. Feel free to use and modify as needed.
 
 ## Author
 
