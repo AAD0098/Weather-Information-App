@@ -352,7 +352,10 @@ public class WeatherGUI extends JFrame {
             message = "Error parsing weather data. Please try again.";
             title = "Parse Error";
         } else {
-            message = "An error occurred: " + ex.getMessage();
+            message = "An unexpected error occurred while fetching the weather data. Please try again.";
+            if (ex.getMessage() != null && !ex.getMessage().trim().isEmpty()) {
+                message += " Details: " + ex.getMessage();
+            }
             title = "Error";
         }
         
