@@ -18,6 +18,8 @@ import java.util.List;
 public class WeatherAPI {
     private static final String GEOCODING_API = "https://geocoding-api.open-meteo.com/v1/search";
     private static final String WEATHER_API = "https://api.open-meteo.com/v1/forecast";
+    private static final int CONNECTION_TIMEOUT_MS = 5000;
+    private static final int READ_TIMEOUT_MS = 5000;
 
     /**
      * Fetch weather data for a given city name
@@ -123,8 +125,8 @@ public class WeatherAPI {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
-        conn.setConnectTimeout(5000);
-        conn.setReadTimeout(5000);
+        conn.setConnectTimeout(CONNECTION_TIMEOUT_MS);
+        conn.setReadTimeout(READ_TIMEOUT_MS);
 
         int responseCode = conn.getResponseCode();
         if (responseCode != 200) {

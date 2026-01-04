@@ -4,6 +4,7 @@ package com.weather.app;
  * Utility class for unit conversions
  */
 public class UnitConverter {
+    private static final double KMH_TO_MPH_FACTOR = 0.621371;
     
     /**
      * Convert Celsius to Fahrenheit
@@ -23,14 +24,14 @@ public class UnitConverter {
      * Convert km/h to mph
      */
     public static double kmhToMph(double kmh) {
-        return kmh * 0.621371;
+        return kmh * KMH_TO_MPH_FACTOR;
     }
 
     /**
      * Convert mph to km/h
      */
     public static double mphToKmh(double mph) {
-        return mph / 0.621371;
+        return mph / KMH_TO_MPH_FACTOR;
     }
 
     /**

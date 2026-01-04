@@ -26,14 +26,14 @@ public class WeatherIcon {
 
         switch (code) {
             case 0:
-                return "☀"; // Clear
+                return "☀️"; // Clear
             case 1:
             case 2:
             case 3:
                 return "⛅"; // Partly cloudy
             case 45:
             case 48:
-                return "🌫"; // Fog
+                return "🌁"; // Fog
             case 51:
             case 53:
             case 55:
