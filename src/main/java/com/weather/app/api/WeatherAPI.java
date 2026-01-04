@@ -67,8 +67,11 @@ public class WeatherAPI {
         double latitude = extractJsonValue(jsonResponse, "\"latitude\":");
         double longitude = extractJsonValue(jsonResponse, "\"longitude\":");
         
-        // Validate coordinates
-        if (latitude == 0.0 && longitude == 0.0) {
+        // Validate coordinates fall within realistic geographic bounds
+        if (Double.isNaN(latitude) || Double.isNaN(longitude)
+                || Double.isInfinite(latitude) || Double.isInfinite(longitude)
+                || latitude < -90.0 || latitude > 90.0
+                || longitude < -180.0 || longitude > 180.0) {
             throw new Exception("Invalid coordinates for city: " + cityName);
         }
         
