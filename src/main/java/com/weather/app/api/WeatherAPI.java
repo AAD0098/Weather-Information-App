@@ -107,22 +107,26 @@ public class WeatherAPI {
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
         
-        int responseCode = connection.getResponseCode();
-        if (responseCode != 200) {
-            throw new Exception("HTTP request failed with code: " + responseCode);
+        try {
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                throw new Exception("HTTP request failed with code: " + responseCode);
+            }
+            
+            StringBuilder response = new StringBuilder();
+            String line;
+            
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()))) {
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+            
+            return response.toString();
+        } finally {
+            connection.disconnect();
         }
-        
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
-        
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-        }
-        reader.close();
-        connection.disconnect();
-        
-        return response.toString();
     }
     
     /**
