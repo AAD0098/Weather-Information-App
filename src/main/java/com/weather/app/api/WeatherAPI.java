@@ -55,12 +55,22 @@ public class WeatherAPI {
         String jsonResponse = makeHttpRequest(urlString);
         
         // Simple JSON parsing for coordinates
-        if (!jsonResponse.contains("\"results\"")) {
+        if (jsonResponse == null || jsonResponse.isEmpty() || !jsonResponse.contains("\"results\"")) {
+            throw new Exception("City not found: " + cityName);
+        }
+        
+        // Check if results array is empty
+        if (jsonResponse.contains("\"results\":[]")) {
             throw new Exception("City not found: " + cityName);
         }
         
         double latitude = extractJsonValue(jsonResponse, "\"latitude\":");
         double longitude = extractJsonValue(jsonResponse, "\"longitude\":");
+        
+        // Validate coordinates
+        if (latitude == 0.0 && longitude == 0.0) {
+            throw new Exception("Invalid coordinates for city: " + cityName);
+        }
         
         return new double[]{latitude, longitude};
     }
@@ -213,9 +223,13 @@ public class WeatherAPI {
      * Extract a numeric value from JSON string
      * @param json JSON string
      * @param key The key to search for
-     * @return The numeric value
+     * @return The numeric value, or 0.0 if not found or invalid
      */
     private static double extractJsonValue(String json, String key) {
+        if (json == null || json.isEmpty() || key == null) {
+            return 0.0;
+        }
+        
         int index = json.indexOf(key);
         if (index == -1) {
             return 0.0;
@@ -231,8 +245,17 @@ public class WeatherAPI {
             endIndex = endIndex2;
         }
         
+        if (endIndex == -1) {
+            return 0.0;
+        }
+        
         String valueStr = remaining.substring(0, endIndex).trim();
-        return Double.parseDouble(valueStr);
+        
+        try {
+            return Double.parseDouble(valueStr);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
     }
     
     /**

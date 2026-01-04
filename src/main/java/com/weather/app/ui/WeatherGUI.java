@@ -306,10 +306,14 @@ public class WeatherGUI extends JFrame {
             // Try to load from resources
             InputStream is = getClass().getResourceAsStream("/icons/" + iconName);
             if (is != null) {
-                Image img = ImageIO.read(is);
-                Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                iconLabel.setIcon(new ImageIcon(scaledImg));
-                return;
+                try {
+                    Image img = ImageIO.read(is);
+                    Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                    iconLabel.setIcon(new ImageIcon(scaledImg));
+                    return;
+                } finally {
+                    is.close();
+                }
             }
             
             // Try to load from file system
